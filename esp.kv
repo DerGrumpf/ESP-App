@@ -1,0 +1,45 @@
+<ColorSlider>:
+    orientation: 'vertical'
+    value: root.startvalue()
+    range: (0,255)
+    step: 1
+
+<Label>:
+    font_size: 40
+    outline_color: 1,1,1
+
+<Button>:
+    font_size: 40
+    color: 0,0,0,1
+
+<MainUI>:
+    orientation: 'vertical'
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint: 1,1
+        Label:
+            text: 'Red: %x' % int(red.value) if red.value else 'Red: 0'
+            color: red.value/255.0,0,0,1
+        Label:
+            text: 'Green: %x' % int(green.value) if green.value else 'Green: 0'
+            color: 0,green.value/255.0,0,1
+        Label:
+            text: 'Blue: %x' % int(blue.value) if blue.value else 'Blue: 0'
+            color: 0,0,blue.value/255.0,1
+
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint: 1,5
+        ColorSlider:
+            id: red
+        ColorSlider:
+            id: green
+        ColorSlider:
+            id: blue
+
+    BoxLayout:
+        size_hint: 1,1
+        Button:
+            text: "Execute"
+            background_color: red.value/255.0,green.value/255,blue.value/255,1
+            on_press: app.send_url('python.org', red=int(red.value), green=int(green.value), blue=int(blue.value))
